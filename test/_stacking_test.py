@@ -7,6 +7,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.svm import SVR
 from sklearn.linear_model import LinearRegression
+from sklearn.metric
 
 import stacker
 
@@ -104,21 +105,28 @@ class _StackerTest(unittest.TestCase):
     #         [DecisionTreeClassifier(random_state=1), BadPredictor()],
     #         LinearRegression(), fun, -1)
 
-    def test_boston(self):
+    def test_basic_uperation(self):
         from sklearn.datasets import load_boston
         X, y = load_boston(return_X_y=True)
 
         stck = stacker.Stacker(
             first_level_preds=[
                 Pipeline([
-                    ('pca', PCA()), ('dtc', DecisionTreeRegressor(random_state=1))]),
+                    ('pca', PCA()), ('dtr', DecisionTreeRegressor(random_state=1))]),
                 LinearRegression()],
             stacker_pred=SVR(),
             cv_fn=self._default_cv_fun(),
             n_jobs=-1)
 
-        stck.fit(X, y)
-        res = stck.predict(X)
+        tr, te = self._default_cv_fun().split(X)[-1]
+        X_train, X_test =X[tr], X[te]
+
+        stck.fit(X[tr], y[tr])
+        y_hat = stck.predict(X[te])
+        score = sklearn.metric.r2_score(y[te], y_hat)
+
+        self.assertGreate(score, 0)
+
         
 
 
