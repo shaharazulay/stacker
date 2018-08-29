@@ -48,13 +48,13 @@ class Stacker(object):
             self,
             first_level_preds,
             stacker_pred,
-            cv_fn=lambda x: sklearn.cross_validation.LeaveOneOut(x.shape[0]),
+            cv_fn=sklearn.model_selection.LeaveOneOut(),
             n_jobs=1):
 
         self._validate_cv_fn(cv_fn)
         self._first_level_preds = first_level_preds
         self._stacker_pred = stacker_pred
-        self._cv_fn = cv_fn
+        self._cv_fn = cv_fn.split
         self._n_jobs = n_jobs
 
     def _validate_cv_fn(self, cv_fn, span=1000):
