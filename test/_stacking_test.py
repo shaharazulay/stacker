@@ -117,7 +117,7 @@ class _StackerTest(unittest.TestCase):
             cv_fn=self._default_cv_fun(),
             n_jobs=-1)
 
-        tr, te = self._default_cv_fun().split(X)[-1]
+        tr, te = self._default_cv_fun().split(X).next()
         X_train, X_test =X[tr], X[te]
 
         stck.fit(X[tr], y[tr])
