@@ -11,7 +11,7 @@ from sklearn.linear_model import LinearRegression
 import stacker
 
 
-class _BadPredictor(object):
+class _BadPredictor(sklearn.base.RegressorMixin):
         """
         help regressor that is overfitted by design.
         the regressor can therefore mislead a regressor that uses its outputs if correct stacking is not installed.
