@@ -69,7 +69,7 @@ class Stacker(object):
         if len(set(lst)) != len(arr):
             raise ValueError(
                 'cv_fn:%s is not a closed cross validation function - not all values are covered'
-                % cv_fn)
+                % self._cv_fn)
 
     def predict(self, x):
         """
@@ -101,7 +101,7 @@ class Stacker(object):
         """
         cross_val_result = Parallel(n_jobs=self._n_jobs)(
             delayed(cross_val_predict)
-            (pred, X=x, y=y, cv=self._cv_fn(x))
+            (pred, X=x, y=y, cv=lambda: self._cv_fn(x))
             for pred in self._first_level_preds)
 
         self._stacker_pred.fit(
