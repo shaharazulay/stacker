@@ -15,7 +15,6 @@ Shahar Azulay, Ariel Hanemann
 
 .. |ReadTheDocs| image:: https://readthedocs.org/projects/stacking-ensemble/badge/?version=latest
 .. _ReadTheDocs: https://stacking-ensemble.readthedocs.io/en/latest/?badge=latest
-:alt: Documentation Status
 
 .. |Codecov| image:: https://codecov.io/gh/shaharazulay/traceable-dict/branch/master/graph/badge.svg
 .. _Codecov: https://codecov.io/gh/shaharazulay/traceable-dict
@@ -41,8 +40,13 @@ At the second stage, the models are not combined in a standard way (e.g. averagi
 to estimate the input together with outputs of every model to estimate the weight each model should get or, in other words, determine which
 models perform better than others on the certain types of input data.
 
+.. figure:: https://github.com/shaharazulay/stacker/blob/master/docs/stacking_ensemble.jpg
+
+      **high-level description of the stacking ensemble**
+   
 Stacking is tricky and should be performed with care.
 Without a careful implementation stacking can be easily drawn into a very overfitted model, that fails to generalize
 well on the input data.
 
 The `Stacker <https://github.com/shaharazulay/stacker>`_ module allows for easy use of the stacking apporoach in an `sklearn <http://scikit-learn.org/>`_-based environment.
+
