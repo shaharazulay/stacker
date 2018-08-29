@@ -117,6 +117,7 @@ class _StackerTest(unittest.TestCase):
 
         stck.fit(X, y)
         res = stck.predict(X)
+        
 
 
 
