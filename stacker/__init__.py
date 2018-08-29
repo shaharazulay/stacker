@@ -17,9 +17,14 @@ def _wrap_predict(x, pred):
 
 class Stacker(object):
     """
-    A two stage stacker. The first stage Includes a list of estimators. The second
-    stage include one estimator (stacker) that trains on the outputs of the first stage estimators.
-    The estimators can be sklearn Pipelines.
+    Ensemble learning combining multiple regression models into a single regression pipeline.
+
+    This class implements a two-staged stacker:
+        The first stage Includes a list of estimators.
+        The second stage include one estimator (the stacker) that trains on the outputs of the first stage estimators.
+
+    The estimators are expected to be scikit-learn compatible, but can be complex Pipelines.
+
     fit:
        1. The first stage estimators fit and predict the data and target using cross_val_predict.
        2. The second stage estimator (stacker) is fitted by training on the
