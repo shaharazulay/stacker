@@ -112,7 +112,7 @@ class _StackerTest(unittest.TestCase):
                     ('pca', PCA()), ('dtc', DecisionTreeClassifier(random_state=1))]),
                 LinearRegression()],
             stacker_pred=SVR(),
-            cv_fn=fun,
+            cv_fn=self._default_cv_fn,
             n_jobs=-1)
 
         stck.fit(X, y)
