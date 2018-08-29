@@ -53,14 +53,14 @@ class Stacker(object):
 
         self._first_level_preds = first_level_preds
         self._stacker_pred = stacker_pred
-        self._cv_fn = lambda x: cv_fn.split(x)
+        self._cv_fn = cv_fn
         self._n_jobs = n_jobs
 
         self._validate_cv_fn()
 
     def _validate_cv_fn(self, span=1000):
         arr = np.array(range(span))
-        cv_iterator = self._cv_fn(arr)
+        cv_iterator = self._cv_fn.spilt(arr)
         lst = []
 
         for tr, te in cv_iterator:
@@ -101,7 +101,7 @@ class Stacker(object):
         """
         cross_val_result = Parallel(n_jobs=self._n_jobs)(
             delayed(cross_val_predict)
-            (pred, X=x, y=y, cv=self._cv_fn(x))
+            (pred, X=x, y=y, cv=self._cv_fn)
             for pred in self._first_level_preds)
 
         self._stacker_pred.fit(
