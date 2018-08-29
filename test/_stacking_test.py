@@ -64,18 +64,16 @@ class _StackerTest(unittest.TestCase):
         """test the case where a the input contains a cross validation strategy that fails to cover all
            of the input indices"""
 
-        _make_stacker = lambda: stacker.Stacker(
-            first_level_preds=[
-                Pipeline([
-                    ('pca', PCA()), ('dtr', DecisionTreeRegressor(random_state=1))]),
-                LinearRegression()],
-            stacker_pred=SVR(),
-            cv_fn=self._bad_cv_fun(),
-            n_jobs=-1)
-
         self.assertRaises(
             ValueError,
-            _make_stacker()
+            stacker.Stacker(
+                first_level_preds=[
+                    Pipeline([
+                        ('pca', PCA()), ('dtr', DecisionTreeRegressor(random_state=1))]),
+                    LinearRegression()],
+                stacker_pred=SVR(),
+                cv_fn=self._bad_cv_fun(),
+                n_jobs=-1)
         )
 
     def test_overfitting_resilience(self):
@@ -102,6 +100,6 @@ class _StackerTest(unittest.TestCase):
             abs(stck._stacker_pred.coef_[0]),
             abs(stck._stacker_pred.coef_[1]))
 
-        
+
 if __name__ == '__main__':
     unittest.main()
