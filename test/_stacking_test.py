@@ -52,16 +52,16 @@ class _StackerTest(unittest.TestCase):
         [7], [14], [7], [7], [0], [0], [35], [7], [35], [35],
         [0], [0], [14], [14], [7], [35], [7], [14], [0], [14]])
     
-    def _default_cv_fun(self, x):
+    def _default_cv_fun(self):
         return sklearn.model_selection.KFold(n_splits=10)
 
-    def _bad_cv_fub(self, x):
+    def _bad_cv_fun(self):
         return sklearn.model_selection.ShuffleSplit(
             n_splits=2, test_size=.25, random_state=0)
 
     def test_basic_stacking(self):
         """test the stacking """
-        fun = self._default_cv_fun
+        fun = self._default_cv_fun()
 
         stck = stacker.Stacker(
             first_level_preds=[
@@ -79,7 +79,7 @@ class _StackerTest(unittest.TestCase):
 
     def test_bad_predictor(self):
         """test that the stacker behaves logically and gives low coefficient to a bad predictor"""
-        fun = self._default_cv_fun
+        fun = self._default_cv_fun()
 
         stck = stacker.Stacker(
             first_level_preds=[
@@ -97,7 +97,8 @@ class _StackerTest(unittest.TestCase):
     def test_bad_coverage_cv(self):
         """test the case where a the input contains a cv method that does
         not cover all of x's rows"""
-        fun = self._bad_cv_fub
+        fun = self._bad_cv_fun()
+        
         self.assertRaises(
             ValueError, stacker.Stacker,
             [DecisionTreeClassifier(random_state=1), BadPredictor()],
