@@ -7,7 +7,6 @@ from sklearn.pipeline import Pipeline
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.svm import SVR
 from sklearn.linear_model import LinearRegression
-from sklearn.metric
 
 import stacker
 
