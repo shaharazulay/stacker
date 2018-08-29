@@ -42,7 +42,7 @@ models perform better than others on the certain types of input data.
 
 .. figure:: https://github.com/shaharazulay/stacker/blob/master/docs/stacking_ensemble.jpg
 
-      **high-level description of the stacking ensemble**
+      *[1] high-level description of the stacking ensemble*
    
 Stacking is tricky and should be performed with care.
 Without a careful implementation stacking can be easily drawn into a very overfitted model, that fails to generalize
