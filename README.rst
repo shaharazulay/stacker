@@ -50,3 +50,29 @@ well on the input data.
 
 The `Stacker <https://github.com/shaharazulay/stacker>`_ module allows for easy use of the stacking apporoach in an `sklearn <http://scikit-learn.org/>`_-based environment.
 
+**First time example:**
+
+    >>> from sklearn.decomposition import PCA
+    >>> from sklearn.pipeline import Pipeline
+    >>> from sklearn.tree import DecisionTreeRegressor
+    >>> from sklearn.linear_model import LinearRegression
+    >>>
+    >>> from sklearn.datasets import load_boston
+    >>> X, y = load_boston(return_X_y=True)
+    >>> 
+    >>> tr, te = self._default_cv_fun().split(X).next()
+    >>> X_train, X_test = X[tr], X[te]
+    >>> 
+    >>> my_pipe = Pipeline([
+            ('pca', PCA()),
+            ('dtr', DecisionTreeRegressor(random_state=1))])
+    >>> my_regr = LinearRegression()
+    >>> my_meta_regr = LinearRegression()
+    >>>
+    >>> stck = stacker.Stacker(
+            first_level_preds=[my_pipe, my_regr],
+            stacker_pred=my_meta_regr,
+            n_jobs=-1)
+    >>> 
+    >>> stck.fit(X[tr], y[tr])
+    >>> y_hat = stck.predict(X[te])
