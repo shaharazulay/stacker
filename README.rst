@@ -26,7 +26,7 @@ Shahar Azulay, Ariel Hanemann
 .. _Python35:
     
     
-There three so-called "meta-algorithms" / approaches to combine several machine learning techniques into one predictive model in order to:
+There are three so-called "meta-algorithms" / approaches to combine several machine learning techniques into one predictive model in order to:
 
    1. decrease the variance (bagging)
    2. decrease the bias (boosting)
