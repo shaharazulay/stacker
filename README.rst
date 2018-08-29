@@ -5,13 +5,17 @@ Stacker
 
 Shahar Azulay, Ariel Hanemann
 
-|Travis|_ |Codecov|_ |Python27|_ |Python35|_ |License|_
+|Travis|_ |ReadTheDocs|_ |Codecov|_ |Python27|_ |Python35|_ |License|_
 
 .. |License| image:: https://img.shields.io/badge/license-BSD--3--Clause-brightgreen.svg
 .. _License: https://github.com/shaharazulay/stacker/blob/master/LICENSE
    
 .. |Travis| image:: https://travis-ci.org/shaharazulay/stacker.svg?branch=master
 .. _Travis: https://travis-ci.org/shaharazulay/stacker
+
+.. |ReadTheDocs| image:: https://readthedocs.org/projects/stacking-ensemble/badge/?version=latest
+.. _ReadTheDocs: https://stacking-ensemble.readthedocs.io/en/latest/?badge=latest
+:alt: Documentation Status
 
 .. |Codecov| image:: https://codecov.io/gh/shaharazulay/traceable-dict/branch/master/graph/badge.svg
 .. _Codecov: https://codecov.io/gh/shaharazulay/traceable-dict
