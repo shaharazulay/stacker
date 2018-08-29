@@ -53,7 +53,7 @@ class Stacker(object):
 
         self._first_level_preds = first_level_preds
         self._stacker_pred = stacker_pred
-        self._cv_fn = cv_fn.split
+        self._cv_fn = lambda x: cv_fn.split(x)
         self._n_jobs = n_jobs
 
         self._validate_cv_fn(self._cv_fn)
