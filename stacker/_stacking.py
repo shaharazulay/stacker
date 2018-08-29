@@ -51,18 +51,19 @@ class Stacker(object):
             cv_fn=lambda x: sklearn.cross_validation.LeaveOneOut(x.shape[0]),
             n_jobs=1):
 
-        self._test_closed_cv_fn(cv_fn)
+        self._validate_cv_fn(cv_fn)
         self._first_level_preds = first_level_preds
         self._stacker_pred = stacker_pred
         self._cv_fn = cv_fn
         self._n_jobs = n_jobs
 
-    def _test_closed_cv_fn(self, cv_fn):
-        arr = np.array([i*i for i in range(1000)])
+    def _validate_cv_fn(self, cv_fn, span=1000):
+        arr = np.array(range(span))
         cv_iterator = cv_fn(arr)
         lst = []
-        for train, test in cv_iterator:
-            lst.extend(list(test))
+
+        for tr, te in cv_iterator:
+            lst.extend(list(te))
 
         if len(set(lst)) != len(arr):
             raise ValueError(
@@ -102,14 +103,16 @@ class Stacker(object):
             (pred, X=x, y=y, cv=self._cv_fn(x))
             for pred in self._first_level_preds)
 
-        self._stacker_pred.fit(np.array(np.column_stack(tuple(cross_val_result))), y)
+        self._stacker_pred.fit(
+            np.array(np.column_stack(tuple(cross_val_result))),
+            y)
 
         result_preds = Parallel(n_jobs=self._n_jobs)(
             delayed(_wrap_fit)(x, y, pred)
             for pred in self._first_level_preds)
 
         self._first_level_preds = result_preds
-        
+
         return self
 
 

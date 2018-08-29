@@ -1,5 +1,5 @@
-import day_two
-from day_two import unittest_
+import unittest
+
 import numpy as np
 import sklearn
 from sklearn.decomposition import PCA
@@ -7,6 +7,8 @@ from sklearn.pipeline import Pipeline
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVR
 from sklearn.linear_model import LinearRegression
+
+import stacker
 
 
 class BadPredictor(object):
@@ -22,7 +24,7 @@ class BadPredictor(object):
             return self._y[:, 0]
 
 
-class _StackerTest(unittest_.TestCase):
+class _StackerTest(unittest.TestCase):
 
     data = np.array([
         [71, 17, 14],
@@ -59,9 +61,16 @@ class _StackerTest(unittest_.TestCase):
     def test_basic_stacking(self):
         """test the stacking """
         fun = self._default_cv_fun
-        stck = day_two.sklearn_.ensemble.Stacker([Pipeline([('pca', PCA()), (
-            'dtc', DecisionTreeClassifier(random_state=1))]),
-                                                  LinearRegression()], SVR(), fun, -1)
+
+        stck = stacker.Stacker(
+            first_level_preds=[
+                Pipeline([
+                    ('pca', PCA()), ('dtc', DecisionTreeClassifier(random_state=1))]),
+                LinearRegression()],
+            stacker_pred=SVR(),
+            cv_fn=fun,
+            n_jobs=-1)
+
         stck.fit(self.data[0:16], self.target[0:16])
         res = stck.predict(self.data[17:20])
         np.testing.assert_almost_equal(res, np.array(
@@ -70,9 +79,15 @@ class _StackerTest(unittest_.TestCase):
     def test_bad_predictor(self):
         """test that the stacker behaves logically and gives low coefficient to a bad predictor"""
         fun = self._default_cv_fun
-        stck = day_two.sklearn_.ensemble.Stacker(
-            [DecisionTreeClassifier(random_state=1),
-             BadPredictor()], LinearRegression(), fun, -1)
+
+        stck = stacker.Stacker(
+            first_level_preds=[
+                DecisionTreeClassifier(random_state=1),
+                BadPredictor()],
+            stacker_pred=LinearRegression(),
+            cv_fn=fun,
+            n_jobs=-1)
+
         stck.fit(self.data[0:16], self.target[0:16])
         stck.predict(self.data[0:16])
         np.testing.assert_almost_equal(
@@ -83,10 +98,27 @@ class _StackerTest(unittest_.TestCase):
         not cover all of x's rows"""
         fun = self._bad_cv_fub
         self.assertRaises(
-            ValueError, day_two.sklearn_.ensemble.Stacker,
+            ValueError, stacker.Stacker,
             [DecisionTreeClassifier(random_state=1), BadPredictor()],
             LinearRegression(), fun, -1)
 
+    def test_boston(self):
+        from sklearn.datasets import load_boston
+        X, y = load_boston(return_X_y=True)
+
+        stck = stacker.Stacker(
+            first_level_preds=[
+                Pipeline([
+                    ('pca', PCA()), ('dtc', DecisionTreeClassifier(random_state=1))]),
+                LinearRegression()],
+            stacker_pred=SVR(),
+            cv_fn=fun,
+            n_jobs=-1)
+
+        stck.fit(X, y)
+        res = stck.predict(X)
+
+
 
 if __name__ == '__main__':
-    unittest_.main()
+    unittest.main()
