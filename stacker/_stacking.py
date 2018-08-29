@@ -34,7 +34,9 @@ class Stacker(object):
             the meta-level model that trains on the first level estimators outputs
 
         cv_fn: function,
-            a cross validation function to be used for the when fitting the stacker
+            a cross validation function to be used for the when fitting the stacker.
+            Note: the cv_fn must describe a complete cross-validation strategy, meaning one that covers the entire
+                span over all folds (e.g. ShuffleSplit is not guarantied to do that).
 
         n_jobs: int, (default: 1)
             number of workers to use (for the cross validation as well as for parallel training)

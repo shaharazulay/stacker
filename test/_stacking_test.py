@@ -59,53 +59,46 @@ class _StackerTest(unittest.TestCase):
         return sklearn.model_selection.ShuffleSplit(
             n_splits=2, test_size=.25, random_state=0)
 
-    # def test_basic_stacking(self):
-    #     """test the stacking """
-    #     fun = self._default_cv_fun()
-    #
-    #     stck = stacker.Stacker(
-    #         first_level_preds=[
-    #             Pipeline([
-    #                 ('pca', PCA()), ('dtc', DecisionTreeClassifier(random_state=1))]),
-    #             LinearRegression()],
-    #         stacker_pred=SVR(),
-    #         cv_fn=fun,
-    #         n_jobs=-1)
-    #
-    #     stck.fit(self.data[0:16], self.target[0:16])
-    #     res = stck.predict(self.data[17:20])
-    #     np.testing.assert_almost_equal(res, np.array(
-    #              [7.77900296,  6.88169834,  8.57800039]), decimal=3)
-    #
-    # def test_bad_predictor(self):
-    #     """test that the stacker behaves logically and gives low coefficient to a bad predictor"""
-    #     fun = self._default_cv_fun()
-    #
-    #     stck = stacker.Stacker(
-    #         first_level_preds=[
-    #             DecisionTreeClassifier(random_state=1),
-    #             BadPredictor()],
-    #         stacker_pred=LinearRegression(),
-    #         cv_fn=fun,
-    #         n_jobs=-1)
-    #
-    #     stck.fit(self.data[0:16], self.target[0:16])
-    #     stck.predict(self.data[0:16])
-    #     np.testing.assert_almost_equal(
-    #         stck._stacker_pred.coef_, np.array([[0.39485935, -0.12336237]]), decimal=3)
-    #
-    # def test_bad_coverage_cv(self):
-    #     """test the case where a the input contains a cv method that does
-    #     not cover all of x's rows"""
-    #     fun = self._bad_cv_fun()
-    #
-    #     self.assertRaises(
-    #         ValueError, stacker.Stacker,
-    #         [DecisionTreeClassifier(random_state=1), BadPredictor()],
-    #         LinearRegression(), fun, -1)
+    def test_basic_stacking(self):
+        """test the stacking """
+        fun = self._default_cv_fun()
 
-    def test_basic_uperation(self):
+        stck = stacker.Stacker(
+            first_level_preds=[
+                Pipeline([
+                    ('pca', PCA()), ('dtc', DecisionTreeClassifier(random_state=1))]),
+                LinearRegression()],
+            stacker_pred=SVR(),
+            cv_fn=fun,
+            n_jobs=-1)
+
+        stck.fit(self.data[0:16], self.target[0:16])
+        res = stck.predict(self.data[17:20])
+        np.testing.assert_almost_equal(res, np.array(
+                 [7.77900296,  6.88169834,  8.57800039]), decimal=3)
+
+    def test_bad_predictor(self):
+        """test that the stacker behaves logically and gives low coefficient to a bad predictor"""
+        fun = self._default_cv_fun()
+
+        stck = stacker.Stacker(
+            first_level_preds=[
+                DecisionTreeClassifier(random_state=1),
+                BadPredictor()],
+            stacker_pred=LinearRegression(),
+            cv_fn=fun,
+            n_jobs=-1)
+
+        stck.fit(self.data[0:16], self.target[0:16])
+        stck.predict(self.data[0:16])
+        np.testing.assert_almost_equal(
+            stck._stacker_pred.coef_, np.array([[0.39485935, -0.12336237]]), decimal=3)
+
+    def test_basic_operation(self):
+        """"test basic usage of the stacking ensemble"""
+
         from sklearn.datasets import load_boston
+
         X, y = load_boston(return_X_y=True)
 
         stck = stacker.Stacker(
@@ -118,7 +111,7 @@ class _StackerTest(unittest.TestCase):
             n_jobs=-1)
 
         tr, te = self._default_cv_fun().split(X).next()
-        X_train, X_test =X[tr], X[te]
+        X_train, X_test = X[tr], X[te]
 
         stck.fit(X[tr], y[tr])
         y_hat = stck.predict(X[te])
@@ -126,8 +119,23 @@ class _StackerTest(unittest.TestCase):
 
         self.assertGreater(score, 0)
 
-        
+    def test_bad_coverage_cv(self):
+        """test the case where a the input contains a cross validation strategy that fails to cover all
+           of the input indices"""
 
+        _make_stacker = lambda: stacker.Stacker(
+            first_level_preds=[
+                Pipeline([
+                    ('pca', PCA()), ('dtr', DecisionTreeRegressor(random_state=1))]),
+                LinearRegression()],
+            stacker_pred=SVR(),
+            cv_fn=self._bad_cv_fun(),
+            n_jobs=-1)
+
+        self.assertRaises(
+            ValueError,
+            _make_stacker()
+        )
 
 
 if __name__ == '__main__':
