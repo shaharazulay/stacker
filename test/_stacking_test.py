@@ -53,10 +53,10 @@ class _StackerTest(unittest.TestCase):
         [0], [0], [14], [14], [7], [35], [7], [14], [0], [14]])
     
     def _default_cv_fun(self, x):
-        return sklearn.cross_validation.KFold(x.shape[0], 10)
+        return sklearn.model_selection.KFold(x.shape[0], 10)
 
     def _bad_cv_fub(self, x):
-        return sklearn.cross_validation.KFold(10)
+        return sklearn.model_selection.KFold(10)
 
     def test_basic_stacking(self):
         """test the stacking """
