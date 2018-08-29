@@ -56,6 +56,7 @@ The `Stacker <https://github.com/shaharazulay/stacker>`_ module allows for easy 
     >>> from sklearn.pipeline import Pipeline
     >>> from sklearn.tree import DecisionTreeRegressor
     >>> from sklearn.linear_model import LinearRegression
+    >>> import stacker
     >>>
     >>> from sklearn.datasets import load_boston
     >>> X, y = load_boston(return_X_y=True)
