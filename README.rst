@@ -23,4 +23,4 @@ Stacking is tricky and should be performed with care.
 Without a careful implementation stacking can be easily drawn into a very overfitted model, that fails to generalize
 well on the input data.
 
-The Stacker module allows for easy use of the stacking apporoach in an sklearn-based environment.
+The `Stacker <https://github.com/shaharazulay/stacker>`_ module allows for easy use of the stacking apporoach in an `sklearn <http://scikit-learn.org/>`_-based environment.
