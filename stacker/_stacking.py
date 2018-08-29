@@ -101,7 +101,7 @@ class Stacker(object):
         """
         cross_val_result = Parallel(n_jobs=self._n_jobs)(
             delayed(cross_val_predict)
-            (pred, X=x, y=y, cv=lambda: self._cv_fn(x))
+            (pred, X=x, y=y, cv=self._cv_fn(x))
             for pred in self._first_level_preds)
 
         self._stacker_pred.fit(
