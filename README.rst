@@ -9,8 +9,8 @@ There three so-called "meta-algorithms" / approaches to combine several machine 
    1. decrease the variance (bagging)
    2. decrease the bias (boosting)
    3. or improving the predictive force (stacking).
-
-[Stacking](http://en.wikipedia.org/wiki/Ensemble_learning#Stacking) is an ensemble learning method in which one applys several models to your original data at the first stage.
+   
+ `Stacking <http://en.wikipedia.org/wiki/Ensemble_learning#Stacking>`_ is an ensemble learning method in which one applys several models to your original data at the first stage.
 Each of the models are trained to fit and best estimate the data in a predictive manner.
 
 At the second stage, the models are not combined in a standard way (e.g. averaging their outputs) but rather meta-level model is introduced
