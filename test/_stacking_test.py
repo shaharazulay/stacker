@@ -24,7 +24,7 @@ class _BadPredictor(object):
             return {}
         
         def predict(self, x):
-            return self._y[:, 0]
+            return self._y[:]
 
 
 class _StackerTest(unittest.TestCase):
