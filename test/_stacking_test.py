@@ -4,7 +4,7 @@ import numpy as np
 import sklearn
 from sklearn.decomposition import PCA
 from sklearn.pipeline import Pipeline
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeRegressor
 from sklearn.svm import SVR
 from sklearn.linear_model import LinearRegression
 
@@ -111,7 +111,7 @@ class _StackerTest(unittest.TestCase):
         stck = stacker.Stacker(
             first_level_preds=[
                 Pipeline([
-                    ('pca', PCA()), ('dtc', DecisionTreeClassifier(random_state=1))]),
+                    ('pca', PCA()), ('dtc', DecisionTreeRegressor(random_state=1))]),
                 LinearRegression()],
             stacker_pred=SVR(),
             cv_fn=self._default_cv_fun(),
