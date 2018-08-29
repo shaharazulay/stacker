@@ -11,7 +11,7 @@ install:
 
 script: 
   - python setup.py test
-  - coverage run test/_test.py
+  - coverage run test/_stacking_test.py
   
 after_success:
   - codecov
