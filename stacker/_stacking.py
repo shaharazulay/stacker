@@ -25,22 +25,24 @@ class Stacker(object):
 
     The estimators are expected to be scikit-learn compatible, but can be complex Pipelines.
 
-    fit:
-       1. The first stage estimators fit and predict the data and target using cross_val_predict.
-       2. The second stage estimator (stacker) is fitted by training on the
-          outputs of the first stage predictors and trying to fit to the original target.
-       3. finaly the first level estimators are fitted on the original data and target.
-    predict:
-       1. The fitted first level estimators predict based on the data
-       2. the fitted stacker predicts based on the output
-          of the output of the first level estimators.
+    Parameters
+    ----------
+        first_level_preds : list (of sklearn estimators / pipelines),
+            lower-level estimators to stack.
 
-    Arguments:
-        first_level_preds: lower-level estimators to stack.
-        stacker_pred: the estimator that trains on the first level estimators outputs
-        cv_fn: a cross validation function for the cross_val_predict_to_use
-        n_jobs: number of cpu's to use for the cross validation as well as for parallel training
-        and predicting of several estimators. n_jobs=-1 means all cpu's are used
+        stacker_pred : sklearn estimator-like object,
+            the meta-level model that trains on the first level estimators outputs
+
+        cv_fn: function,
+            a cross validation function to be used for the when fitting the stacker
+
+        n_jobs: int, (default: 1)
+            number of workers to use (for the cross validation as well as for parallel training)
+            n_jobs=-1 means all available workers (by CPU cores) should used
+
+
+    Examples
+    --------
     """
     def __init__(
             self,
@@ -70,6 +72,13 @@ class Stacker(object):
     def predict(self, x):
         """
         Same signature as any sklearn stage.
+
+        method:
+           1. The first stage estimators fit and predict the data and target using cross_val_predict.
+           2. The meta-level estimator (stacker) is fitted by training over the outputs of the
+              first stage estimators and trying to fit to the original target.
+           3. Finally the first level estimators are re-fitted on the original data and target.
+
         """
         predict_results = Parallel(n_jobs=self._n_jobs)(delayed(_wrap_predict)(x, pred)
                                                         for pred in self._first_level_preds)
@@ -78,6 +87,11 @@ class Stacker(object):
     def fit(self, x, y):
         """
         Same signature as any sklearn stage.
+
+        method:
+            1. The fitted first level estimators predict the target based on the data
+            2. The fitted meta-level stacker predicts the target based on the outputs
+               of the first level estimators.
         """
         cross_val_result = Parallel(n_jobs=self._n_jobs)(delayed(cross_val_predict)
                                                          (pred, X=x, y=y, cv=self._cv_fn(x))
