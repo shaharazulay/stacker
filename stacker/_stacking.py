@@ -51,11 +51,12 @@ class Stacker(object):
             cv_fn=sklearn.model_selection.LeaveOneOut(),
             n_jobs=1):
 
-        self._validate_cv_fn(cv_fn)
         self._first_level_preds = first_level_preds
         self._stacker_pred = stacker_pred
         self._cv_fn = cv_fn.split
         self._n_jobs = n_jobs
+
+        self._validate_cv_fn(cv_fn)
 
     def _validate_cv_fn(self, cv_fn, span=1000):
         arr = np.array(range(span))
