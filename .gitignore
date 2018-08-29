@@ -1,0 +1,9 @@
+build
+dist
+*.pyc
+*.sw?
+*/__pycache__
+.*
+*egg-info*
+Untitled*.*
+htmlcov
