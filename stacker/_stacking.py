@@ -56,7 +56,7 @@ class Stacker(object):
         self._cv_fn = cv_fn.split
         self._n_jobs = n_jobs
 
-        self._validate_cv_fn(cv_fn)
+        self._validate_cv_fn(self._cv_fn)
 
     def _validate_cv_fn(self, cv_fn, span=1000):
         arr = np.array(range(span))

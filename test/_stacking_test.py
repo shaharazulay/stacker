@@ -98,7 +98,7 @@ class _StackerTest(unittest.TestCase):
         """test the case where a the input contains a cv method that does
         not cover all of x's rows"""
         fun = self._bad_cv_fun()
-        
+
         self.assertRaises(
             ValueError, stacker.Stacker,
             [DecisionTreeClassifier(random_state=1), BadPredictor()],
