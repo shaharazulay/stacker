@@ -124,7 +124,7 @@ class _StackerTest(unittest.TestCase):
         y_hat = stck.predict(X[te])
         score = sklearn.metrics.r2_score(y[te], y_hat)
 
-        self.assertGreate(score, 0)
+        self.assertGreater(score, 0)
 
         
 
