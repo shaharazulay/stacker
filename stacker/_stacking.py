@@ -1,7 +1,7 @@
 import numpy as np
 import sklearn
 from joblib import Parallel, delayed
-from sklearn.cross_validation import cross_val_predict
+from sklearn.model_selection import cross_val_predict
 
 __all__ = []
 
