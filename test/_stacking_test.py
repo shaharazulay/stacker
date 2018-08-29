@@ -11,7 +11,7 @@ from sklearn.linear_model import LinearRegression
 import stacker
 
 
-class _BadPredictor(sklearn.base.RegressorMixin):
+class BadPredictor(sklearn.base.RegressorMixin):
         """
         help regressor that is overfitted by design.
         the regressor can therefore mislead a regressor that uses its outputs if correct stacking is not installed.
@@ -64,8 +64,7 @@ class _StackerTest(unittest.TestCase):
         """test the case where a the input contains a cross validation strategy that fails to cover all
            of the input indices"""
 
-        self.assertRaises(
-            ValueError,
+        with self.assertRaises(ValueError):
             stacker.Stacker(
                 first_level_preds=[
                     Pipeline([
@@ -74,7 +73,6 @@ class _StackerTest(unittest.TestCase):
                 stacker_pred=SVR(),
                 cv_fn=self._bad_cv_fun(),
                 n_jobs=-1)
-        )
 
     def test_overfitting_resilience(self):
         """test that the stacker is robust to first level estimators that demonstrate overfitting
@@ -89,7 +87,7 @@ class _StackerTest(unittest.TestCase):
         stck = stacker.Stacker(
             first_level_preds=[
                 DecisionTreeRegressor(random_state=1),
-                _BadPredictor()],
+                BadPredictor()],
             stacker_pred=LinearRegression(),
             cv_fn=self._default_cv_fun(),
             n_jobs=-1)
