@@ -60,7 +60,7 @@ class Stacker(object):
 
     def _validate_cv_fn(self, span=1000):
         arr = np.array(range(span))
-        cv_iterator = self._cv_fn.spilt(arr)
+        cv_iterator = self._cv_fn.split(arr)
         lst = []
 
         for tr, te in cv_iterator:
