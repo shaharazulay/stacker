@@ -73,33 +73,43 @@ class Stacker(object):
         """
         Same signature as any sklearn stage.
 
-        method:
+        Method:
+        --------
            1. The first stage estimators fit and predict the data and target using cross_val_predict.
            2. The meta-level estimator (stacker) is fitted by training over the outputs of the
               first stage estimators and trying to fit to the original target.
            3. Finally the first level estimators are re-fitted on the original data and target.
 
         """
-        predict_results = Parallel(n_jobs=self._n_jobs)(delayed(_wrap_predict)(x, pred)
-                                                        for pred in self._first_level_preds)
+        predict_results = Parallel(n_jobs=self._n_jobs)(
+            delayed(_wrap_predict)(x, pred)
+            for pred in self._first_level_preds)
+
         return self._stacker_pred.predict(np.column_stack(tuple(predict_results)))
 
     def fit(self, x, y):
         """
         Same signature as any sklearn stage.
 
-        method:
+        Method:
+        --------
             1. The fitted first level estimators predict the target based on the data
             2. The fitted meta-level stacker predicts the target based on the outputs
                of the first level estimators.
         """
-        cross_val_result = Parallel(n_jobs=self._n_jobs)(delayed(cross_val_predict)
-                                                         (pred, X=x, y=y, cv=self._cv_fn(x))
-                                                         for pred in self._first_level_preds)
+        cross_val_result = Parallel(n_jobs=self._n_jobs)(
+            delayed(cross_val_predict)
+            (pred, X=x, y=y, cv=self._cv_fn(x))
+            for pred in self._first_level_preds)
+
         self._stacker_pred.fit(np.array(np.column_stack(tuple(cross_val_result))), y)
-        result_preds = Parallel(n_jobs=self._n_jobs)(delayed(_wrap_fit)(x, y, pred)
-                                                     for pred in self._first_level_preds)
+
+        result_preds = Parallel(n_jobs=self._n_jobs)(
+            delayed(_wrap_fit)(x, y, pred)
+            for pred in self._first_level_preds)
+
         self._first_level_preds = result_preds
+        
         return self
 
 
