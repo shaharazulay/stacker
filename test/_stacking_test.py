@@ -11,7 +11,9 @@ from sklearn.linear_model import LinearRegression
 import stacker
 
 
-class BadPredictor(sklearn.base.RegressorMixin):
+class _StackerTest(unittest.TestCase):
+
+    class BadPredictor(sklearn.base.RegressorMixin):
         """
         help regressor that is overfitted by design.
         the regressor can therefore mislead a regressor that uses its outputs if correct stacking is not installed.
@@ -19,16 +21,13 @@ class BadPredictor(sklearn.base.RegressorMixin):
         def fit(self, x, y):
             self._y = y
             return self
-        
+
         def get_params(self, deep=True):
             return {}
-        
+
         def predict(self, x):
             return self._y[:]
-
-
-class _StackerTest(unittest.TestCase):
-
+        
     def _default_cv_fun(self):
         return sklearn.model_selection.KFold(n_splits=10)
 
