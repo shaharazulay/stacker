@@ -27,7 +27,7 @@ class _StackerTest(unittest.TestCase):
 
         def predict(self, x):
             return self._y[:]
-        
+
     def _default_cv_fun(self):
         return sklearn.model_selection.KFold(n_splits=10)
 
