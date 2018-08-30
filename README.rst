@@ -40,9 +40,8 @@ At the second stage, the models are not combined in a standard way (e.g. averagi
 to estimate the input together with outputs of every model to estimate the weight each model should get or, in other words, determine which
 models perform better than others on the certain types of input data.
 
-.. figure:: https://github.com/shaharazulay/stacker/blob/master/docs/_static/stacking_ensemble.png
-
-      *[1] high-level description of the stacking ensemble*
+.. image:: https://github.com/shaharazulay/stacker/blob/master/docs/_static/stacking_ensemble.png
+*[1] high-level description of the stacking ensemble*
    
 Stacking is tricky and should be performed with care.
 Without a careful implementation stacking can be easily drawn into a very overfitted model, that fails to generalize
