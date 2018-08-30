@@ -39,7 +39,7 @@ At the second stage, the models are not combined in a standard way (e.g. averagi
 to estimate the input together with outputs of every model to estimate the weight each model should get or, in other words, determine which
 models perform better than others on the certain types of input data.
 
-.. image:: ./docs/_static/stacking_ensemble.jpg
+.. image:: docs/_static/figure_001.jpg
 
 *[1] high-level description of the stacking ensemble*
    
