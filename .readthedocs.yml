@@ -3,3 +3,6 @@ requirements_file: requirements.txt
 
 python:
     setup_py_install: true
+    
+pages:
+    Home: docs/index.rst
