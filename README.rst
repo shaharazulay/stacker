@@ -25,7 +25,7 @@ Shahar Azulay, Ariel Hanemann
 .. |Python35| image:: https://img.shields.io/badge/python-3.5-blue.svg
 .. _Python35:
 
-.. |Figure1| image:: https://github.com/shaharazulay/stacker/blob/master/docs/_static/stacking_ensemble.jpg
+.. |Figure1| image:: docs/_static/stacking_ensemble.jpg
 .. _Figure1:
     
 There are three so-called "meta-algorithms" / approaches to combine several machine learning techniques into one predictive model in order to:
