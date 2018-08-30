@@ -43,6 +43,7 @@ to estimate the input together with outputs of every model to estimate the weigh
 models perform better than others on the certain types of input data.
 
 |Figure1|_
+
 *[1] high-level description of the stacking ensemble*
    
 Stacking is tricky and should be performed with care.
