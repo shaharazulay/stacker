@@ -11,12 +11,18 @@ sys.path.append(os.path.dirname(__file__))
 sys.path.append(os.path.abspath('_ext'))
 
 extensions = [
-    'sphinx.ext.autosectionlabel',
+    'sphinxcontrib.spelling',
+    'sphinxcontrib.fulltoc',
     'sphinx.ext.autodoc',
+    'sphinx.ext.napoleon',
+    'sphinx.ext.doctest',
     'sphinx.ext.intersphinx',
-    'sphinxcontrib.httpdomain',
-    'djangodocs',
-    'doc_extensions',
+    'sphinx.ext.todo',
+    'sphinx.ext.coverage',
+    'sphinx.ext.mathjax',
+    'sphinx.ext.ifconfig',
+    'sphinx.ext.viewcode',
+    'sphinxcontrib.plantuml',
 ]
 templates_path = ['_templates']
 
