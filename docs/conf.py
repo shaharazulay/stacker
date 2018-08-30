@@ -24,9 +24,7 @@ source_suffix = '.rst'
 
 master_doc = 'index'
 project =  u'Stacker'
-copyright = '2010-{}, Shahar Azulay, Ariel Hanemann'.format(
-    timezone.now().year
-)
+copyright = '2017, Shahar Azulay, Ariel Hanemann'
 
 version = '1.0'
 release = '1.0'
