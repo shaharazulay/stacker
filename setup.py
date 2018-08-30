@@ -32,7 +32,7 @@ setup(
     ],
     license='bsd',
     description='Ensemble learning combining multiple regression models into a single regression pipeline',
-    long_description=open('README.rst').read(),
+    long_description=open('docs/README.rst').read(),
     install_requires=[],
     zip_safe=False,
     package_data={},
