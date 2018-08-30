@@ -13,7 +13,7 @@ Shahar Azulay, Ariel Hanemann
 .. |Travis| image:: https://travis-ci.org/shaharazulay/stacker.svg?branch=master
 .. _Travis: https://travis-ci.org/shaharazulay/stacker
 
-.. |ReadTheDocs| image:: https://readthedocs.org/projects/stacking-ensemble/badge/?version=latest
+.. |ReadTheDocs| image:: https://stacking-ensemble.readthedocs.io/en/latest/?badge=latest
 .. _ReadTheDocs: https://stacking-ensemble.readthedocs.io/en/latest
 
 .. |Codecov| image:: https://codecov.io/gh/shaharazulay/traceable-dict/branch/master/graph/badge.svg
