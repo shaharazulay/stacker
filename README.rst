@@ -14,7 +14,7 @@ Shahar Azulay, Ariel Hanemann
 .. _Travis: https://travis-ci.org/shaharazulay/stacker
 
 .. |ReadTheDocs| image:: https://readthedocs.org/projects/stacking-ensemble/badge/?version=latest
-.. _ReadTheDocs: https://stacking-ensemble.readthedocs.io/en/latest/?badge=latest
+.. _ReadTheDocs: https://stacking-ensemble.readthedocs.io/en/latest
 
 .. |Codecov| image:: https://codecov.io/gh/shaharazulay/traceable-dict/branch/master/graph/badge.svg
 .. _Codecov: https://codecov.io/gh/shaharazulay/traceable-dict
@@ -24,8 +24,7 @@ Shahar Azulay, Ariel Hanemann
 
 .. |Python35| image:: https://img.shields.io/badge/python-3.5-blue.svg
 .. _Python35:
-
-    
+                
 There are three so-called "meta-algorithms" / approaches to combine several machine learning techniques into one predictive model in order to:
 
    1. decrease the variance (bagging)
