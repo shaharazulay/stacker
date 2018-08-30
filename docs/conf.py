@@ -11,8 +11,6 @@ sys.path.append(os.path.dirname(__file__))
 sys.path.append(os.path.abspath('_ext'))
 
 extensions = [
-#     'sphinxcontrib.spelling',
-#     'sphinxcontrib.fulltoc',
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
     'sphinx.ext.doctest',
@@ -22,7 +20,6 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
-#     'sphinxcontrib.plantuml',
 ]
 templates_path = ['_templates']
 
@@ -36,11 +33,6 @@ version = '1.0'
 release = '1.0'
 exclude_patterns = ['_build']
 default_role = 'obj'
-# intersphinx_mapping = {
-#     'python': ('http://python.readthedocs.io/en/latest/', None),
-#     'django': ('http://django.readthedocs.io/en/1.9.x/', None),
-#     'sphinx': ('http://sphinx.readthedocs.io/en/latest/', None),
-# }
 
 htmlhelp_basename = 'Stacker'
 latex_documents = [
@@ -56,6 +48,23 @@ exclude_patterns = [
     # 'api' # needed for ``make gettext`` to not die.
 ]
 
+
+#---- HTML OUTPUT CONFIG ----
+# The theme to use for HTML and HTML Help pages.  See the documentation for
+# a list of builtin themes.
+html_theme = "guzzle"
+
+# Theme options are theme-specific and customize the look and feel of a theme
+# further.  For a list of options available for each theme, see the
+# documentation.
+html_theme_options = {
+    'github_user': 'shaharazulay',
+    'github_repo': 'stacker',
+    'github_button': True,
+    'github_banner': True,
+    'page_width': '100%',
+    'sidebar_width': '20%',
+}
 
 html_logo = '_static/logo.jpeg'
 html_favicon = '_static/logo.ico'
