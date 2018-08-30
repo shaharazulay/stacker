@@ -86,7 +86,7 @@ class _StackerTest(unittest.TestCase):
         stck = stacker.Stacker(
             first_level_preds=[
                 DecisionTreeRegressor(random_state=1),
-                BadPredictor()],
+                self.BadPredictor()],
             stacker_pred=LinearRegression(),
             cv_fn=self._default_cv_fun(),
             n_jobs=-1)
