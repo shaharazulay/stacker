@@ -24,7 +24,9 @@ Shahar Azulay, Ariel Hanemann
 
 .. |Python35| image:: https://img.shields.io/badge/python-3.5-blue.svg
 .. _Python35:
-    
+
+.. |Figure1| image:: https://github.com/shaharazulay/stacker/blob/master/docs/_static/stacking_ensemble.jpg
+.. _Figure1:
     
 There are three so-called "meta-algorithms" / approaches to combine several machine learning techniques into one predictive model in order to:
 
@@ -40,7 +42,7 @@ At the second stage, the models are not combined in a standard way (e.g. averagi
 to estimate the input together with outputs of every model to estimate the weight each model should get or, in other words, determine which
 models perform better than others on the certain types of input data.
 
-.. image:: https://github.com/shaharazulay/stacker/blob/master/docs/_static/stacking_ensemble.jpg
+|Figure1|_
 *[1] high-level description of the stacking ensemble*
    
 Stacking is tricky and should be performed with care.
