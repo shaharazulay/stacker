@@ -11,8 +11,8 @@ sys.path.append(os.path.dirname(__file__))
 sys.path.append(os.path.abspath('_ext'))
 
 extensions = [
-    'sphinxcontrib.spelling',
-    'sphinxcontrib.fulltoc',
+#     'sphinxcontrib.spelling',
+#     'sphinxcontrib.fulltoc',
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
     'sphinx.ext.doctest',
@@ -22,7 +22,7 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
-    'sphinxcontrib.plantuml',
+#     'sphinxcontrib.plantuml',
 ]
 templates_path = ['_templates']
 
