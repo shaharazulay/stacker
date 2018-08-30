@@ -11,22 +11,23 @@ from sklearn.linear_model import LinearRegression
 import stacker
 
 
+class BadPredictor(sklearn.base.RegressorMixin):
+    """
+    help regressor that is overfitted by design.
+    the regressor can therefore mislead a regressor that uses its outputs if correct stacking is not installed.
+    """
+    def fit(self, x, y):
+        self._y = y
+        return self
+
+    def get_params(self, deep=True):
+        return {}
+
+    def predict(self, x):
+        return self._y[:]
+
+
 class _StackerTest(unittest.TestCase):
-
-    class BadPredictor(sklearn.base.RegressorMixin):
-        """
-        help regressor that is overfitted by design.
-        the regressor can therefore mislead a regressor that uses its outputs if correct stacking is not installed.
-        """
-        def fit(self, x, y):
-            self._y = y
-            return self
-
-        def get_params(self, deep=True):
-            return {}
-
-        def predict(self, x):
-            return self._y[:]
 
     def _default_cv_fun(self):
         return sklearn.model_selection.KFold(n_splits=10)
@@ -86,7 +87,7 @@ class _StackerTest(unittest.TestCase):
         stck = stacker.Stacker(
             first_level_preds=[
                 DecisionTreeRegressor(random_state=1),
-                self.BadPredictor()],
+                BadPredictor()],
             stacker_pred=LinearRegression(),
             cv_fn=self._default_cv_fun(),
             n_jobs=-1)
